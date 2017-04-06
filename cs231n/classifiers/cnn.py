@@ -223,16 +223,16 @@ class ThreeConvlayers_convnet(object):
     pool_W_out2 = 1 + ((conv_W_out[2] - pool_width) / stride_pool)
 
     fan_in, fan_out = np.prod((C,filter_size[0],filter_size[0])),num_filters[0]
-    self.params['W1'] = np.random.randn(num_filters[0],C,filter_size[0],filter_size[0])/np.sqrt((fan_in/2))
+    self.params['W1'] = np.random.randn(num_filters[0],C,filter_size[0],filter_size[0])*np.sqrt((2/fan_in))
     self.params['b1'] = np.zeros(num_filters[0])
 
     fan_in, fan_out = np.prod((num_filters[0],filter_size[1],filter_size[1])),num_filters[1]
-    self.params['W2'] = np.random.randn(num_filters[1],num_filters[0],filter_size[1],filter_size[1])/np.sqrt((fan_in/2))
+    self.params['W2'] = np.random.randn(num_filters[1],num_filters[0],filter_size[1],filter_size[1])*np.sqrt((2/fan_in))
 
     self.params['b2'] = np.zeros(num_filters[1])
 
     fan_in, fan_out = np.prod((num_filters[1],filter_size[2],filter_size[2])),num_filters[2]
-    self.params['W3'] = np.random.randn(num_filters[2],num_filters[1],filter_size[2],filter_size[2])/np.sqrt((fan_in)/2)
+    self.params['W3'] = np.random.randn(num_filters[2],num_filters[1],filter_size[2],filter_size[2])*np.sqrt((2/fan_in))
     self.params['b3'] = np.zeros(num_filters[2])
     # outsize of conv_layer 
 
@@ -240,15 +240,15 @@ class ThreeConvlayers_convnet(object):
 
 
     fan_in, fan_out = np.prod((num_filters[2],pool_H_out2,pool_W_out2)),hidden_dim[0]
-    self.params['W4'] = np.random.randn(num_filters[2]*pool_H_out2*pool_W_out2,hidden_dim[0])/np.sqrt((fan_in)/2)
+    self.params['W4'] = np.random.randn(num_filters[2]*pool_H_out2*pool_W_out2,hidden_dim[0])*np.sqrt((2/fan_in))
     self.params['b4'] = np.zeros(hidden_dim[0])
 
     fan_in, fan_out = hidden_dim[0],hidden_dim[1]
-    self.params['W5'] = np.random.randn(hidden_dim[0],hidden_dim[1])/np.sqrt((fan_in)/2)
+    self.params['W5'] = np.random.randn(hidden_dim[0],hidden_dim[1])*np.sqrt((2/fan_in))
     self.params['b5'] = np.zeros(hidden_dim[1])
 
     fan_in, fan_out = hidden_dim[1],num_classes
-    self.params['W6'] = np.random.randn(hidden_dim[1],num_classes)/np.sqrt((fan_in)/2)
+    self.params['W6'] = np.random.randn(hidden_dim[1],num_classes)*np.sqrt((2/fan_in))
     self.params['b6'] = np.zeros(num_classes)
     ############################################################################
     #                             END OF YOUR CODE                             #
